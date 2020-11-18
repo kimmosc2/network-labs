@@ -16,14 +16,14 @@
 
 ```(router) router rip```  
 用途:开启IP路由协议(RIP)  
-  
+
 ```(router) version 2```  
 用途:RIP2版本  
-  
+
 ```(router) network [net-id] (注:RIP协议不需要子网掩码)```  
 用途:宣告网段    
 [net-id] 网络地址，注意别带主机位,如果不了解net-id和host-id请翻书:-)  
-  
+
 ### OSPF 动态路由相关
 
 ```(router)router ospf [process-id]```  
@@ -32,8 +32,8 @@
 #### 解决OSPF router-id项一直打叉
 比如题中给的OSPF process是1,而你第一次打成了2,就会导致这种情况发生,即使你后来在1上做了正确的配置,依旧会出现这样的情况,解决办法就是:
 1.在enable模式下输入```show ip ospf 2```,查看ospf 2的router-id，并记录下来  
-2.在config模式下输入```router ospf 2```,然后输入```router-ip [ip]```为process2指定一个新的router-id,完成后会提示你reload或者输入```clear ip ospf 2```来使配置生效  
-3.按照2的方法，将ospf 1的router-id更改为你在1中记录的router-id并使配置生效  
+2.在config模式下输入```no router ospf 2```关掉ospf2进程  
+3.进入ospf 1进程```router ospf 1```,配置router-id:```router-id + 刚刚记录的ospf2的router-id```完成后会提示你reload或者输入```clear ip ospf 2```来使配置生效    
 ~~4.还不会？那你私我吧~~  
 
 ```(router)network [net-id] [net-mask] area [area-id] ```  
